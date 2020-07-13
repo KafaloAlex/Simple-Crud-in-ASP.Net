@@ -1,0 +1,60 @@
+﻿@model CatalogueProduit.Models.CAT_CATEGORIE
+
+@{
+    ViewBag.Title = "AddCategory";
+}
+
+<h2>AddCategory</h2>
+
+<div>
+    @*Formulaire*@
+    <form id="formCat" name="formCat" method="post">
+        @if(Model != null)
+         {
+            <input type="hidden" name="CODE_CATEGORIE" value="@Model.CODE_CATEGORIE"/>
+         }
+        <div class="form-group">
+            <label>CATEGORY</label>
+            <input type="text" id="LIBELLE_CATEGORIE" name="LIBELLE_CATEGORIE" class="form-control" required  value="@(Model != null? Model.LIBELLE_CATEGORIE:"")"/>
+        </div>
+        <div>
+            @if (Model == null)
+            {
+                <input type="submit" id="register" name="register" value="Add" class="btn btn-primary" />
+            }
+            else
+            {
+                <input type="submit" id="save" name="save" value="Save" class="btn btn-success"/>
+                <a href="~/Category/AddCategory" class="btn btn-default">Cancel</a>
+            }
+        </div>
+    </form>
+    <hr />
+    @*Tableau d'affichage des Catégories*@
+    <div class="table-responsive">
+        <table class="table table-responsive table-bordered" >
+            <tr>
+                <th>CATEGORY</th>
+                <th>DATE DE SAISIE</th>
+            </tr>
+
+            @foreach(var data in ViewBag.CategoryList)
+             {
+                <tr>
+                    <td>@data.LIBELLE_CATEGORIE</td>
+                    <td>@data.DATE_SAISIE</td>
+                    <td>
+                        <a href="~/Category/ModifyCategory/@data.CODE_CATEGORIE" class="btn btn-warning btn-xs">
+                            <span class="glyphicon glyphicon-pencil"></span>Modify
+                        </a>
+                    </td>
+                    <td>
+                        <a href="~/Category/DeleteCategory/@data.CODE_CATEGORIE" class="btn btn-danger btn-xs">
+                            <span class="glyphicon glyphicon-trash"></span>Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
